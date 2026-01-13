@@ -1,0 +1,5 @@
+.env
+.flake8
+.editorconfig
+.vscode
+.vscode/settings.json

@@ -1,49 +1,66 @@
-# Nome do Projeto
+# PyFlow Suite 🌊
 
-> Breve descrição do projeto em 2-3 frases, explicando o propósito, motivação e problema que resolve.
+> Uma suíte consolidada de ferramentas Python focada em **Otimização** e **Produtividade**. Este repositório unifica projetos de automação, backups e comunicação em uma interface fluida e moderna.
 
-![Demonstração do sistema](link-para-gif-ou-imagem)
+[![Acesse o Repositório](https://img.shields.io/badge/Ver%20no%20GitHub-gray?style=for-the-badge)](https://github.com/vitoriapguimaraes/PyFlow-Suite)
 
 ## Funcionalidades Principais
 
-- Liste as principais funcionalidades do projeto.
-- Destaque o que é inovador ou diferencial.
+O **PyFlow Launcher** organiza as ferramentas em três pilares essenciais:
 
-## Resultados e Conclusões
+### ⚡ Otimização & Automação
 
-(Quando conter no projeto. Geralmente utilizado para projetos de datascience)
+_Ferramentas para economizar tempo e eliminar tarefas repetitivas._
+
+- **Product Registration**: Automação de cadastro em formulários web (csv -> web).
+- **Sales Report**: Geração e envio automático de relatórios de desempenho por e-mail.
+
+### 🛡️ Produtividade & Utilitários
+
+_Ferramentas para segurança e gestão de arquivos._
+
+- **Backup Tool**: Sistema robusto de backup automático com organização por data/hora.
+
+### 💬 Comunicação
+
+_Ferramentas para conexão em tempo real._
+
+- **Real-Time Chat**: Chat moderno com suporte a Web (Flask) e Desktop (Flet).
 
 ## Tecnologias Utilizadas
 
-- Liste as principais tecnologias, frameworks e bibliotecas.
+- **Core**: Python 3.10+
+- **Launcher UI**: Flet (Framework moderno baseado em Flutter)
+- **Automação**: PyAutoGUI, Pandas, OpenPyXL
+- **Web/Rede**: Flask, SocketIO
 
 ## Como Executar
 
 1. Clone o repositório:
-   ```
-   git clone https://github.com/usuario/repositorio.git
+   ```bash
+   git clone https://github.com/vitoriapguimaraes/PyFlow-Suite.git
    ```
 2. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
    ```
-   comando de instalação
+3. Execute o Launcher Central:
+   ```bash
+   python src/launcher/main.py
    ```
-3. Execute o projeto:
-   ```
-   comando para rodar
-   ```
-
-## Como Usar
-
-- Explique como acessar e testar as principais funcionalidades.
-- Se necessário, inclua exemplos de uso ou prints.
 
 ## Estrutura de Diretórios
 
 ```
-/nome-do-projeto
+/PyFlow-Suite
 ├── src/
-├── data/
-├── results/
+│   ├── launcher/           # PyFlow Launcher (Flet)
+│   ├── product_registration/
+│   ├── backup_tool/
+│   ├── realtime_chat/
+│   └── sales_report/
+├── legacy_code/            # Histórico de aprendizado
+├── requirements.txt
 └── README.md
 ```
 
@@ -51,9 +68,8 @@
 
 - ✅ Concluído
 - 🛠️ Em manutenção
-- 🚧 Em desenvolvimento
 
-> Veja as [issues abertas](https://github.com/usuario/repositorio/issues) para sugestões de melhorias e próximos passos.
+> Veja as [issues abertas](https://github.com/vitoriapguimaraes/PyFlow-Suite/issues) para sugestões.
 
 ## Mais Sobre Mim
 
