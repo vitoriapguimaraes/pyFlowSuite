@@ -5,7 +5,7 @@ Handles loading, saving, and validating app configurations.
 
 import json
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 
 
 class ConfigManager:
