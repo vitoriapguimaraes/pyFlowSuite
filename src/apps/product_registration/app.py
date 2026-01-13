@@ -2,6 +2,7 @@ import pyautogui
 import pandas as pd
 import time
 import logging
+import keyboard
 from pathlib import Path
 
 # Configure logging
@@ -30,6 +31,23 @@ def main():
 
         # PyAutoGUI Config
         pyautogui.PAUSE = 0.5
+        pyautogui.FAILSAFE = True  # Move mouse to corner to stop
+
+        # Emergency stop flag
+        stop_requested = False
+
+        def on_esc_press(event):
+            nonlocal stop_requested
+            if event.name == "esc":
+                logging.warning("⚠️  ESC pressed - Stopping automation...")
+                stop_requested = True
+
+        # Register ESC key listener
+        keyboard.on_press(on_esc_press)
+
+        logging.info("⚙️  Sistema de parada ativo:")
+        logging.info("   - Pressione ESC para parar a automação")
+        logging.info("   - Ou mova o mouse para o canto superior esquerdo")
 
         # Open System
         logging.info("Opening Edge browser...")
@@ -74,6 +92,11 @@ def main():
 
         # Register Products
         for i, linha in tabela.iterrows():
+            # Check if stop was requested
+            if stop_requested:
+                logging.warning("🛑 Automação interrompida pelo usuário")
+                break
+
             logging.info(f"Registering Product {i+1}/{len(tabela)}: {linha['codigo']}")
 
             # Click first field
@@ -102,7 +125,11 @@ def main():
 
             pyautogui.scroll(5000)  # Scroll up
 
-        logging.info("Automation completed successfully!")
+        # Unregister keyboard listener
+        keyboard.unhook_all()
+
+        if not stop_requested:
+            logging.info("✅ Automation completed successfully!")
 
     except KeyboardInterrupt:
         logging.warning("Automation stopped by user.")

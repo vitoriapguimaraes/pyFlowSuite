@@ -162,13 +162,38 @@ class DialogManager:
         for field_id, field_info in app_info["config_fields"].items():
             value = current_config.get(field_id, field_info["default"])
 
+            # Check if it's a password field
+            is_password = field_info.get("type") == "password"
+
             text_field = ft.TextField(
                 label=field_info["label"],
                 value=str(value),
                 width=450,
+                password=is_password,
+                can_reveal_password=is_password,
             )
             fields[field_id] = text_field
             field_controls.append(text_field)
+
+        # Add coordinate capture button for Product Registration
+        if app_info["id"] == "product_registration":
+            field_controls.append(ft.Divider(height=10, color=ft.colors.TRANSPARENT))
+            field_controls.append(
+                ft.OutlinedButton(
+                    "🎯 Capturar Coordenadas do Formulário",
+                    icon="location_on",
+                    on_click=lambda e: self._launch_coordinate_picker(app_info),
+                    width=450,
+                )
+            )
+            field_controls.append(
+                ft.Text(
+                    "Abre ferramenta para capturar posições dos campos",
+                    size=11,
+                    color=ft.colors.GREY_500,
+                    italic=True,
+                )
+            )
 
         def save_configuration(e):
             # Collect values
@@ -238,3 +263,33 @@ class DialogManager:
         self.info_dialog.open = False
         self.page.update()
         self.show_config_dialog(app_info)
+
+    def _launch_coordinate_picker(self, app_info):
+        """Launch coordinate picker utility"""
+        from pathlib import Path
+
+        script_path = app_info["cwd"] / "capture_coordinates.py"
+
+        if not script_path.exists():
+            self.show_error(
+                "Arquivo não encontrado",
+                f"Script de captura não encontrado em:\n{script_path}",
+            )
+            return
+
+        try:
+            # Launch in new terminal window
+            subprocess.Popen(
+                ["start", "cmd", "/k", sys.executable, str(script_path)],
+                shell=True,
+                cwd=str(app_info["cwd"]),
+            )
+
+            # Show info
+            self.show_error(
+                "Captura Iniciada",
+                "O capturador de coordenadas foi aberto em uma nova janela.\n\n"
+                "Siga as instruções no terminal para capturar as posições dos campos.",
+            )
+        except Exception as e:
+            self.show_error("Erro", f"Falha ao iniciar capturador: {e}")

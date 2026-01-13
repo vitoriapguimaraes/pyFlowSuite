@@ -41,6 +41,11 @@ def get_apps(base_dir: Path) -> dict:
                         "type": "text",
                         "default": "",
                     },
+                    "password": {
+                        "label": "Senha de Login",
+                        "type": "password",
+                        "default": "",
+                    },
                 },
             },
             {
