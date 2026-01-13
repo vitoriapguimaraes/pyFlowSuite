@@ -1,5 +1,20 @@
-flet
-pandas
-pyautogui
-flask
-flask-socketio
+# PyFlow Suite - Requirements
+# Python 3.8+
+
+# GUI Framework
+flet==0.23.2
+
+# Data Processing
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# Automation
+pyautogui>=0.9.54
+keyboard>=0.13.5
+
+# Web Framework (for realtime_chat web version)
+flask>=3.0.0
+flask-socketio>=5.3.0
+
+# Windows Automation (for sales_report)
+pywin32>=306; sys_platform == 'win32'
