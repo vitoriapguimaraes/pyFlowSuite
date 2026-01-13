@@ -2,12 +2,14 @@
 
 import pandas as pd
 import win32com.client as win32
-import sys
 import logging
 from pathlib import Path
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 def main():
     try:
@@ -30,23 +32,29 @@ def main():
         # Analysis
         logging.info("Processing data...")
         # Faturamento por loja
-        faturamento_loja = tabela_vendas[['ID Loja', 'Valor Final']].groupby('ID Loja').sum()
+        faturamento_loja = (
+            tabela_vendas[["ID Loja", "Valor Final"]].groupby("ID Loja").sum()
+        )
 
         # Quantidade de produtos vendidos por loja
-        quantidade_prod_loja = tabela_vendas[['ID Loja', 'Quantidade']].groupby('ID Loja').sum()
+        quantidade_prod_loja = (
+            tabela_vendas[["ID Loja", "Quantidade"]].groupby("ID Loja").sum()
+        )
 
         # Ticket médio por produto em cada loja
-        ticket_medio = (faturamento_loja['Valor Final'] / quantidade_prod_loja['Quantidade']).to_frame()
-        ticket_medio = ticket_medio.rename(columns={0: 'Ticket Médio'})
+        ticket_medio = (
+            faturamento_loja["Valor Final"] / quantidade_prod_loja["Quantidade"]
+        ).to_frame()
+        ticket_medio = ticket_medio.rename(columns={0: "Ticket Médio"})
 
         # Send Email
         logging.info("Preparing email...")
         try:
-            outlook = win32.Dispatch('outlook.application')
+            outlook = win32.Dispatch("outlook.application")
             mail = outlook.CreateItem(0)
-            mail.To = 'vipistori@gmail.com' # Could be argument or input
-            mail.Subject = 'Relatório de Vendas por Loja'
-            mail.HTMLBody = f'''
+            mail.To = "vipistori@gmail.com"  # Could be argument or input
+            mail.Subject = "Relatório de Vendas por Loja"
+            mail.HTMLBody = f"""
             <p>Prezados,</p>
 
             <p>Segue o Relatório de Vendas por cada Loja.</p>
@@ -64,14 +72,16 @@ def main():
 
             <p>Att,</p>
             <p>Vitória.</p>
-            '''
+            """
 
             logging.info("Sending email via Outlook...")
             mail.Send()
             logging.info("Email sent successfully!")
 
         except Exception as e:
-            logging.error(f"Failed to send email via Outlook. Ensure Outlook is installed and configured. Error: {e}")
+            logging.error(
+                f"Failed to send email via Outlook. Ensure Outlook is installed and configured. Error: {e}"
+            )
             logging.info("Generated Report Preview:")
             print("-" * 30)
             print("FATURAMENTO:")
@@ -80,6 +90,7 @@ def main():
 
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()

@@ -8,7 +8,9 @@ from tkinter.filedialog import askdirectory
 
 def main():
     # Configure logging
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    )
 
     # Hide the main tkinter window
     root = tk.Tk()

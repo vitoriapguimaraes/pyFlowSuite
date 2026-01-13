@@ -22,16 +22,16 @@ def main(page: ft.Page):
             "icon": "shopping_cart",
             "path": BASE_DIR / "apps" / "product_registration" / "app.py",
             "cwd": BASE_DIR / "apps" / "product_registration",
-            "color": ft.Colors.BLUE_400
+            "color": ft.Colors.BLUE_400,
         },
         {
             "name": "Sales Report Generator",
             "desc": "Generates and emails HTML sales reports.",
             "icon": "analytics",
-            "path": BASE_DIR / "apps" / "sales_report" / "app.py", 
+            "path": BASE_DIR / "apps" / "sales_report" / "app.py",
             "cwd": BASE_DIR / "apps" / "sales_report",
-            "color": ft.Colors.RED_400
-        }
+            "color": ft.Colors.RED_400,
+        },
     ]
 
     projects_productivity = [
@@ -41,7 +41,7 @@ def main(page: ft.Page):
             "icon": "backup",
             "path": BASE_DIR / "apps" / "backup_tool" / "app.py",
             "cwd": BASE_DIR / "apps" / "backup_tool",
-            "color": ft.Colors.GREEN_400
+            "color": ft.Colors.GREEN_400,
         }
     ]
 
@@ -52,36 +52,45 @@ def main(page: ft.Page):
             "icon": "chat",
             "path": BASE_DIR / "apps" / "realtime_chat" / "app_web.py",
             "cwd": BASE_DIR / "apps" / "realtime_chat",
-            "color": ft.Colors.ORANGE_400
+            "color": ft.Colors.ORANGE_400,
         },
-         {
+        {
             "name": "Real-Time Chat (Desktop)",
             "desc": "Modern Flet-based desktop chat.",
             "icon": "message",
             "path": BASE_DIR / "apps" / "realtime_chat" / "app_desktop.py",
             "cwd": BASE_DIR / "apps" / "realtime_chat",
-            "color": ft.Colors.INDIGO_400
-        }
+            "color": ft.Colors.INDIGO_400,
+        },
     ]
 
     def launch_app(e, project):
         try:
             if not project["path"].exists():
-                snack = ft.SnackBar(ft.Text(f"Error: File not found at {project['path']}"), bgcolor=ft.Colors.RED_900)
+                snack = ft.SnackBar(
+                    ft.Text(f"Error: File not found at {project['path']}"),
+                    bgcolor=ft.Colors.RED_900,
+                )
                 page.overlay.append(snack)
                 snack.open = True
                 page.update()
                 return
 
-            subprocess.Popen([sys.executable, str(project["path"])], cwd=str(project["cwd"]))
+            subprocess.Popen(
+                [sys.executable, str(project["path"])], cwd=str(project["cwd"])
+            )
 
-            snack = ft.SnackBar(ft.Text(f"Launching {project['name']}..."), bgcolor=ft.Colors.GREEN_900)
+            snack = ft.SnackBar(
+                ft.Text(f"Launching {project['name']}..."), bgcolor=ft.Colors.GREEN_900
+            )
             page.overlay.append(snack)
             snack.open = True
             page.update()
 
         except Exception as ex:
-            snack = ft.SnackBar(ft.Text(f"Failed to launch: {str(ex)}"), bgcolor=ft.Colors.RED_900)
+            snack = ft.SnackBar(
+                ft.Text(f"Failed to launch: {str(ex)}"), bgcolor=ft.Colors.RED_900
+            )
             page.overlay.append(snack)
             snack.open = True
             page.update()
@@ -89,25 +98,41 @@ def main(page: ft.Page):
     # UI Builder
     def create_project_card(project):
         return ft.Container(
-            content=ft.Column([
-                ft.Row([
-                    ft.Icon(project["icon"], size=40, color=project["color"]),
-                    ft.Text(project["name"], size=18, weight=ft.FontWeight.BOLD, color=ft.Colors.WHITE),
-                ], alignment=ft.MainAxisAlignment.START),
-                ft.Divider(color=ft.Colors.GREY_800),
-                ft.Text(project["desc"], size=13, color=ft.Colors.GREY_400, selectable=True),
-                ft.Container(expand=True),
-                ft.FilledButton(
-                    "Launch",
-                    icon="rocket_launch",
-                    style=ft.ButtonStyle(
-                        color=ft.Colors.WHITE,
-                        bgcolor=project["color"],
-                        shape=ft.RoundedRectangleBorder(radius=8),
+            content=ft.Column(
+                [
+                    ft.Row(
+                        [
+                            ft.Icon(project["icon"], size=40, color=project["color"]),
+                            ft.Text(
+                                project["name"],
+                                size=18,
+                                weight=ft.FontWeight.BOLD,
+                                color=ft.Colors.WHITE,
+                            ),
+                        ],
+                        alignment=ft.MainAxisAlignment.START,
                     ),
-                    on_click=lambda e: launch_app(e, project)
-                )
-            ], spacing=10),
+                    ft.Divider(color=ft.Colors.GREY_800),
+                    ft.Text(
+                        project["desc"],
+                        size=13,
+                        color=ft.Colors.GREY_400,
+                        selectable=True,
+                    ),
+                    ft.Container(expand=True),
+                    ft.FilledButton(
+                        "Launch",
+                        icon="rocket_launch",
+                        style=ft.ButtonStyle(
+                            color=ft.Colors.WHITE,
+                            bgcolor=project["color"],
+                            shape=ft.RoundedRectangleBorder(radius=8),
+                        ),
+                        on_click=lambda e: launch_app(e, project),
+                    ),
+                ],
+                spacing=10,
+            ),
             padding=20,
             bgcolor=ft.Colors.GREY_900,
             border_radius=15,
@@ -118,7 +143,7 @@ def main(page: ft.Page):
                 blur_radius=10,
                 color=ft.Colors.with_opacity(0.3, ft.Colors.BLACK),
                 offset=ft.Offset(0, 5),
-            )
+            ),
         )
 
     def create_grid(projects):
@@ -141,8 +166,8 @@ def main(page: ft.Page):
                 content=ft.Container(
                     content=create_grid(projects_optimization),
                     padding=40,
-                    alignment=ft.Alignment(-1, -1)
-                )
+                    alignment=ft.Alignment(-1, -1),
+                ),
             ),
             ft.Tab(
                 label="Productivity",
@@ -150,42 +175,42 @@ def main(page: ft.Page):
                 content=ft.Container(
                     content=create_grid(projects_productivity),
                     padding=40,
-                    alignment=ft.Alignment(-1, -1)
-                )
+                    alignment=ft.Alignment(-1, -1),
+                ),
             ),
-             ft.Tab(
+            ft.Tab(
                 label="Communication",
                 icon="forum",
                 content=ft.Container(
                     content=create_grid(projects_communication),
                     padding=40,
-                    alignment=ft.Alignment(-1, -1)
-                )
+                    alignment=ft.Alignment(-1, -1),
+                ),
             ),
         ],
         expand=1,
     )
 
     header = ft.Container(
-        content=ft.Row([
-             ft.Icon("water_drop", size=40, color=ft.Colors.CYAN_400),
-             ft.Text("PyFlow Suite", size=40, weight=ft.FontWeight.BOLD),
-        ], alignment=ft.MainAxisAlignment.CENTER),
+        content=ft.Row(
+            [
+                ft.Icon("water_drop", size=40, color=ft.Colors.CYAN_400),
+                ft.Text("PyFlow Suite", size=40, weight=ft.FontWeight.BOLD),
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+        ),
         padding=ft.padding.only(top=30, bottom=20),
-        alignment=ft.Alignment(0, 0)
+        alignment=ft.Alignment(0, 0),
     )
 
     content_area = ft.Container(
-        content=ft.Column([
-            header,
-            tabs
-        ]),
+        content=ft.Column([header, tabs]),
         expand=True,
         gradient=ft.LinearGradient(
             begin=ft.Alignment(-1, -1),
             end=ft.Alignment(1, 1),
             colors=[ft.Colors.BLACK, ft.Colors.GREY_900],
-        )
+        ),
     )
 
     page.add(content_area)

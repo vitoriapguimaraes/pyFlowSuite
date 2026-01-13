@@ -1,12 +1,14 @@
 import pyautogui
 import pandas as pd
 import time
-import sys
 import logging
 from pathlib import Path
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 def main():
     try:
@@ -34,27 +36,27 @@ def main():
         pyautogui.press("win")
         pyautogui.write("edge")
         pyautogui.press("enter")
-        time.sleep(1) # Wait for run dialog/start menu
+        time.sleep(1)  # Wait for run dialog/start menu
 
         logging.info("Navigating to login page...")
         pyautogui.write("https://dlp.hashtagtreinamentos.com/python/intensivao/login")
         pyautogui.press("enter")
 
-        time.sleep(3) # Wait for page load
+        time.sleep(3)  # Wait for page load
 
         # Login
         logging.info("Performing login...")
-        pyautogui.press("tab") # Usually focus starts on URL or body, tab to fields
-        # Note: Original code used hardcoded coordinates. 
+        pyautogui.press("tab")  # Usually focus starts on URL or body, tab to fields
+        # Note: Original code used hardcoded coordinates.
         # We will try to rely on tabs if possible, or warn user about coordinates.
         # Since I can't guarantee coordinates, I'll attempt a TAB sequence.
         # Typically: Click -> Email -> Tab -> Password -> Tab -> Enter
 
         # Coordinates from original (User might need to adjust these!)
-        # pyautogui.click(x=607, y=508) 
+        # pyautogui.click(x=607, y=508)
 
         # Trying a robust TAB approach (assuming page focus):
-        # 1. Click center of screen to ensure focus? 
+        # 1. Click center of screen to ensure focus?
         # For now, let's keep original coordinates but commented out and try safe tabs?
         # Actually, without coordinates, automating a specific web form is hard with just PyAutoGUI.
         # I will keep the COORDINATES but verify if they are valid or ask user to re-calibrate.
@@ -96,9 +98,9 @@ def main():
                 pyautogui.write(str(obs))
 
             pyautogui.press("tab")
-            pyautogui.press("enter") # Submit
+            pyautogui.press("enter")  # Submit
 
-            pyautogui.scroll(5000) # Scroll up
+            pyautogui.scroll(5000)  # Scroll up
 
         logging.info("Automation completed successfully!")
 
@@ -106,6 +108,7 @@ def main():
         logging.warning("Automation stopped by user.")
     except Exception as e:
         logging.error(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     main()
