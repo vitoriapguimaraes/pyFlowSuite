@@ -175,9 +175,11 @@ class DialogManager:
             fields[field_id] = text_field
             field_controls.append(text_field)
 
-        # Add coordinate capture button for Product Registration
+        # Add tools for Product Registration
         if app_info["id"] == "product_registration":
             field_controls.append(ft.Divider(height=10, color=ft.colors.TRANSPARENT))
+
+            # Coordinate picker
             field_controls.append(
                 ft.OutlinedButton(
                     "🎯 Capturar Coordenadas do Formulário",
@@ -188,7 +190,27 @@ class DialogManager:
             )
             field_controls.append(
                 ft.Text(
-                    "Abre ferramenta para capturar posições dos campos",
+                    "Captura posições X,Y dos campos no formulário",
+                    size=11,
+                    color=ft.colors.GREY_500,
+                    italic=True,
+                )
+            )
+
+            field_controls.append(ft.Divider(height=5, color=ft.colors.TRANSPARENT))
+
+            # Workflow recorder
+            field_controls.append(
+                ft.OutlinedButton(
+                    "🎬 Gravar Workflow Personalizado",
+                    icon="video_camera_back",
+                    on_click=lambda e: self._launch_workflow_recorder(app_info),
+                    width=450,
+                )
+            )
+            field_controls.append(
+                ft.Text(
+                    "Define o fluxo completo da automação (navegação, login, etc.)",
                     size=11,
                     color=ft.colors.GREY_500,
                     italic=True,
@@ -291,3 +313,35 @@ class DialogManager:
             )
         except Exception as e:
             self.show_error("Erro", f"Falha ao iniciar capturador: {e}")
+
+    def _launch_workflow_recorder(self, app_info):
+        """Launch workflow recorder utility"""
+        script_path = app_info["cwd"] / "record_workflow.py"
+
+        if not script_path.exists():
+            self.show_error(
+                "Arquivo não encontrado",
+                f"Gravador de workflow não encontrado em:\n{script_path}",
+            )
+            return
+
+        try:
+            # Launch in new terminal window
+            subprocess.Popen(
+                ["start", "cmd", "/k", sys.executable, str(script_path)],
+                shell=True,
+                cwd=str(app_info["cwd"]),
+            )
+
+            # Show info
+            self.show_error(
+                "Gravador Iniciado",
+                "O gravador de workflow foi aberto em uma nova janela.\n\n"
+                "🎬 Grave o fluxo completo da sua automação:\n"
+                "   - Execute ações manualmente\n"
+                "   - Pressione teclas F1-F8 para marcar etapas\n"
+                "   - Use Ctrl+E e Ctrl+P para campos configuráveis\n"
+                "   - Pressione F9 para finalizar",
+            )
+        except Exception as e:
+            self.show_error("Erro", f"Falha ao iniciar gravador: {e}")
