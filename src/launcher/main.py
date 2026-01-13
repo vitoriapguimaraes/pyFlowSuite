@@ -3,6 +3,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+
 def main(page: ft.Page):
     page.title = "PyFlow Suite"
     page.theme_mode = ft.ThemeMode.DARK
@@ -19,7 +20,7 @@ def main(page: ft.Page):
             "name": "Product Registration",
             "desc": "Automates product entry from CSV into web forms.",
             "icon": "shopping_cart",
-            "path": BASE_DIR / "apps" / "product_registration" / "automacaoCadastro.py",
+            "path": BASE_DIR / "apps" / "product_registration" / "app.py",
             "cwd": BASE_DIR / "apps" / "product_registration",
             "color": ft.Colors.BLUE_400
         },
@@ -27,7 +28,7 @@ def main(page: ft.Page):
             "name": "Sales Report Generator",
             "desc": "Generates and emails HTML sales reports.",
             "icon": "analytics",
-            "path": BASE_DIR / "apps" / "sales_report" / "relatorioVendas.py", 
+            "path": BASE_DIR / "apps" / "sales_report" / "app.py", 
             "cwd": BASE_DIR / "apps" / "sales_report",
             "color": ft.Colors.RED_400
         }
@@ -38,7 +39,7 @@ def main(page: ft.Page):
             "name": "Backup Tool",
             "desc": "Automated file backup system with GUI.",
             "icon": "backup",
-            "path": BASE_DIR / "apps" / "backup_tool" / "backupAutomation.py",
+            "path": BASE_DIR / "apps" / "backup_tool" / "app.py",
             "cwd": BASE_DIR / "apps" / "backup_tool",
             "color": ft.Colors.GREEN_400
         }
@@ -49,7 +50,7 @@ def main(page: ft.Page):
             "name": "Real-Time Chat (Web)",
             "desc": "Flask-SocketIO based web chat.",
             "icon": "chat",
-            "path": BASE_DIR / "apps" / "realtime_chat" / "chatWebFlask.py",
+            "path": BASE_DIR / "apps" / "realtime_chat" / "app_web.py",
             "cwd": BASE_DIR / "apps" / "realtime_chat",
             "color": ft.Colors.ORANGE_400
         },
@@ -57,7 +58,7 @@ def main(page: ft.Page):
             "name": "Real-Time Chat (Desktop)",
             "desc": "Modern Flet-based desktop chat.",
             "icon": "message",
-            "path": BASE_DIR / "apps" / "realtime_chat" / "chatFlet.py",
+            "path": BASE_DIR / "apps" / "realtime_chat" / "app_desktop.py",
             "cwd": BASE_DIR / "apps" / "realtime_chat",
             "color": ft.Colors.INDIGO_400
         }
@@ -135,7 +136,7 @@ def main(page: ft.Page):
         animation_duration=300,
         tabs=[
             ft.Tab(
-                text="Optimization",
+                label="Optimization",
                 icon="flash_on",
                 content=ft.Container(
                     content=create_grid(projects_optimization),
@@ -144,7 +145,7 @@ def main(page: ft.Page):
                 )
             ),
             ft.Tab(
-                text="Productivity",
+                label="Productivity",
                 icon="security",
                 content=ft.Container(
                     content=create_grid(projects_productivity),
@@ -153,7 +154,7 @@ def main(page: ft.Page):
                 )
             ),
              ft.Tab(
-                text="Communication",
+                label="Communication",
                 icon="forum",
                 content=ft.Container(
                     content=create_grid(projects_communication),
@@ -173,7 +174,7 @@ def main(page: ft.Page):
         padding=ft.padding.only(top=30, bottom=20),
         alignment=ft.Alignment(0, 0)
     )
-    
+
     content_area = ft.Container(
         content=ft.Column([
             header,
@@ -188,6 +189,7 @@ def main(page: ft.Page):
     )
 
     page.add(content_area)
+
 
 if __name__ == "__main__":
     ft.app(target=main)
