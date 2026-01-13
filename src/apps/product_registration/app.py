@@ -3,6 +3,7 @@ import pandas as pd
 import time
 import logging
 import keyboard
+import json
 from pathlib import Path
 
 # Configure logging
@@ -37,6 +38,27 @@ def setup_automation():
     logging.info("   - Ou mova o mouse para o canto superior esquerdo")
 
 
+def load_config():
+    """Load configuration from JSON file"""
+    base_dir = Path(__file__).parent
+    src_dir = base_dir.parent.parent
+    config_file = src_dir / "data" / "config" / "product_registration.json"
+
+    if not config_file.exists():
+        logging.error("⚠️  Configuração não encontrada!")
+        logging.error(f"   Configure o app no launcher primeiro: {config_file}")
+        return None
+
+    try:
+        with open(config_file, "r", encoding="utf-8") as f:
+            config = json.load(f)
+        logging.info("✅ Configuração carregada com sucesso")
+        return config
+    except Exception as e:
+        logging.error(f"Erro ao carregar config: {e}")
+        return None
+
+
 def load_products(csv_path):
     """Load products from CSV file"""
     if not csv_path.exists():
@@ -48,7 +70,7 @@ def load_products(csv_path):
     return tabela
 
 
-def open_browser_and_login():
+def open_browser_and_login(site_url, email, password):
     """Open browser and perform login"""
     logging.info("Opening Edge browser...")
     pyautogui.press("win")
@@ -57,16 +79,16 @@ def open_browser_and_login():
     time.sleep(1)
 
     logging.info("Navigating to login page...")
-    pyautogui.write("https://dlp.hashtagtreinamentos.com/python/intensivao/login")
+    pyautogui.write(site_url)
     pyautogui.press("enter")
     time.sleep(3)
 
     logging.info("Performing login...")
     pyautogui.press("tab")
     pyautogui.click(x=607, y=508)
-    pyautogui.write("emailteste@gmail.com")
+    pyautogui.write(email)
     pyautogui.press("tab")
-    pyautogui.write("senhateste")
+    pyautogui.write(password)
     pyautogui.press("tab")
     pyautogui.press("enter")
     time.sleep(3)
@@ -109,21 +131,37 @@ def main():
     try:
         logging.info("Starting Product Registration Automation...")
 
+        # Load configuration
+        config = load_config()
+        if config is None:
+            logging.error("❌ Não é possível continuar sem configuração.")
+            input("Pressione ENTER para sair...")
+            return
+
         # Setup
         setup_automation()
 
-        # Paths
-        base_dir = Path(__file__).parent
-        src_dir = base_dir.parent.parent
-        csv_path = src_dir / "data" / "products.csv"
+        # Get paths from config
+        csv_path = Path(config.get("csv_path", ""))
+        site_url = config.get("site_url", "")
+        email = config.get("email", "")
+        password = config.get("password", "")
+
+        # Validate config
+        if not all([csv_path, site_url, email, password]):
+            logging.error("❌ Configuração incompleta!")
+            logging.error("   Configure todos os campos no launcher.")
+            input("Pressione ENTER para sair...")
+            return
 
         # Load products
         tabela = load_products(csv_path)
         if tabela is None:
+            input("Pressione ENTER para sair...")
             return
 
         # Open browser and login
-        open_browser_and_login()
+        open_browser_and_login(site_url, email, password)
 
         # Register products
         for i, linha in tabela.iterrows():
