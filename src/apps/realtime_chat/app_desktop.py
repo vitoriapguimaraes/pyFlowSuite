@@ -5,7 +5,7 @@ import flet as ft
 def main(page: ft.Page):
     page.title = "HashZap Desktop"
     page.theme_mode = ft.ThemeMode.DARK
-    
+
     # Header
     titulo = ft.Text("HashZap", size=30, weight=ft.FontWeight.BOLD, color=ft.Colors.CYAN_400)
 
@@ -28,7 +28,7 @@ def main(page: ft.Page):
             is_me = (usuario_mensagem == nome_usuario.value)
             alignment = ft.MainAxisAlignment.END if is_me else ft.MainAxisAlignment.START
             bg_color = ft.Colors.CYAN_900 if is_me else ft.Colors.GREY_800
-            
+
             chat.controls.append(
                 ft.Row(
                     [
@@ -64,7 +64,7 @@ def main(page: ft.Page):
             nome_usuario.error_text = "Nome é obrigatório!"
             nome_usuario.update()
             return
-            
+
         if not campo_mensagem.value.strip():
             campo_mensagem.error_text = "Mensagem vazia!"
             campo_mensagem.update()
@@ -88,13 +88,13 @@ def main(page: ft.Page):
             nome_usuario.error_text = "Nome é obrigatório!"
             nome_usuario.update()
             return
-            
+
         page.pubsub.send_all({"usuario": nome_usuario.value.strip(), "tipo": "entrada"})
-        
+
         # Switch UI to Chat Mode
         page.dialog.open = False
         page.clean()
-        
+
         # Add Header and Chat Area
         page.add(
             ft.Container(

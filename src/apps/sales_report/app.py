@@ -65,11 +65,11 @@ def main():
             <p>Att,</p>
             <p>Vitória.</p>
             '''
-            
+
             logging.info("Sending email via Outlook...")
             mail.Send()
             logging.info("Email sent successfully!")
-            
+
         except Exception as e:
             logging.error(f"Failed to send email via Outlook. Ensure Outlook is installed and configured. Error: {e}")
             logging.info("Generated Report Preview:")
@@ -77,7 +77,7 @@ def main():
             print("FATURAMENTO:")
             print(faturamento_loja)
             print("-" * 30)
-            
+
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
 

@@ -13,7 +13,7 @@ def main(page: ft.Page):
 
     # Paths
     BASE_DIR = Path(__file__).parent.parent
-    
+
     # Project Definitions
     projects_optimization = [
         {
@@ -74,12 +74,12 @@ def main(page: ft.Page):
                 return
 
             subprocess.Popen([sys.executable, str(project["path"])], cwd=str(project["cwd"]))
-            
+
             snack = ft.SnackBar(ft.Text(f"Launching {project['name']}..."), bgcolor=ft.Colors.GREEN_900)
             page.overlay.append(snack)
             snack.open = True
             page.update()
-            
+
         except Exception as ex:
             snack = ft.SnackBar(ft.Text(f"Failed to launch: {str(ex)}"), bgcolor=ft.Colors.RED_900)
             page.overlay.append(snack)
