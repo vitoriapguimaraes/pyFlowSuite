@@ -266,8 +266,6 @@ class DialogManager:
 
     def _launch_coordinate_picker(self, app_info):
         """Launch coordinate picker utility"""
-        from pathlib import Path
-
         script_path = app_info["cwd"] / "capture_coordinates.py"
 
         if not script_path.exists():
