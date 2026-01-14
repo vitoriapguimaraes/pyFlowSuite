@@ -79,7 +79,7 @@ def create_header():
     return ft.Container(
         content=ft.Row(
             [
-                ft.Icon("water_drop", size=36, color=ft.colors.CYAN_400),
+                ft.Icon("dashboard", size=36, color=ft.colors.CYAN_400),
                 ft.Text(
                     "PyFlow Suite",
                     size=36,

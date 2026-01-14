@@ -2,7 +2,7 @@
 
 > Uma suíte consolidada de ferramentas Python focada em **Otimização** e **Produtividade**. Este repositório unifica projetos de automação e backups em uma interface fluida e moderna com **sistema de configuração inteligente**.
 
-![Demonstração do sistema](link-para-gif-ou-imagem)
+![Demonstração do sistema](https://github.com/vitoriapguimaraes/pyFlowSuite/blob/main/src/demos/navigation.gif)
 
 ## Funcionalidades Principais
 
