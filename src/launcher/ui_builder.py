@@ -87,4 +87,27 @@ def build_ui(page, apps, dialog_manager):
     for app in apps["communication"]:
         page.add(create_app_card(app, dialog_manager.show_app_dialog))
 
+    page.add(ft.Divider(height=40, color=ft.colors.TRANSPARENT))
+    page.add(create_footer())
+
     page.update()
+
+
+def create_footer():
+    """Create minimalist footer"""
+    return ft.Container(
+        content=ft.Row(
+            [
+                ft.Text(
+                    "Desenvolvido por github.com/vitoriapguimaraes",
+                    size=12,
+                    color=ft.colors.GREY_500,
+                    weight=ft.FontWeight.W_400,
+                    text_align=ft.TextAlign.CENTER,
+                    italic=True,
+                )
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+        ),
+        padding=ft.padding.only(bottom=20),
+    )
