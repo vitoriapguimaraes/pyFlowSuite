@@ -39,7 +39,7 @@ Enquanto o gravador está ativo, **execute manualmente** cada passo e pressione 
 
 ### 3. Fluxo Típico
 
-```
+```bash
 1. Pressione ENTER para começar
 2. Abra o navegador → Pressione F1
 3. Vá para o site → Pressione F2 (vai pedir a URL)
