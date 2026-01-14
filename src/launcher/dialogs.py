@@ -74,7 +74,7 @@ class DialogManager:
         content_items = [
             ft.Text(app_info["description"], size=14, color=ft.colors.GREY_300),
             ft.Divider(height=20, color=ft.colors.TRANSPARENT),
-            ft.Text("✨ Funcionalidades:", size=16, weight=ft.FontWeight.BOLD),
+            ft.Text("Funcionalidades:", size=16, weight=ft.FontWeight.BOLD),
             *[
                 ft.Text(f"  {feature}", size=13, color=ft.colors.GREY_400)
                 for feature in app_info["features"]
@@ -162,25 +162,23 @@ class DialogManager:
         for field_id, field_info in app_info["config_fields"].items():
             value = current_config.get(field_id, field_info["default"])
 
-            # Check if it's a password field
-            is_password = field_info.get("type") == "password"
+            # Create input field using helper
+            input_field = self._create_input_field(field_id, field_info, value, fields)
 
-            text_field = ft.TextField(
-                label=field_info["label"],
-                value=str(value),
-                width=450,
-                password=is_password,
-                can_reveal_password=is_password,
-            )
-            fields[field_id] = text_field
-            field_controls.append(text_field)
+            # If not multiselect (which saves to fields internally), add to fields dict
+            if field_info.get("type") != "multiselect":
+                fields[field_id] = input_field
 
-        # Add coordinate capture button for Product Registration
+            field_controls.append(input_field)
+
+        # Add tools for Product Registration
         if app_info["id"] == "product_registration":
             field_controls.append(ft.Divider(height=10, color=ft.colors.TRANSPARENT))
+
+            # Coordinate picker
             field_controls.append(
                 ft.OutlinedButton(
-                    "🎯 Capturar Coordenadas do Formulário",
+                    "Capturar Coordenadas do Formulário",
                     icon="location_on",
                     on_click=lambda e: self._launch_coordinate_picker(app_info),
                     width=450,
@@ -188,7 +186,27 @@ class DialogManager:
             )
             field_controls.append(
                 ft.Text(
-                    "Abre ferramenta para capturar posições dos campos",
+                    "Captura posições X,Y dos campos no formulário",
+                    size=11,
+                    color=ft.colors.GREY_500,
+                    italic=True,
+                )
+            )
+
+            field_controls.append(ft.Divider(height=5, color=ft.colors.TRANSPARENT))
+
+            # Workflow recorder
+            field_controls.append(
+                ft.OutlinedButton(
+                    "Gravar Workflow Personalizado",
+                    icon="video_camera_back",
+                    on_click=lambda e: self._launch_workflow_recorder(app_info),
+                    width=450,
+                )
+            )
+            field_controls.append(
+                ft.Text(
+                    "Define o fluxo completo da automação (navegação, login, etc.)",
                     size=11,
                     color=ft.colors.GREY_500,
                     italic=True,
@@ -291,3 +309,108 @@ class DialogManager:
             )
         except Exception as e:
             self.show_error("Erro", f"Falha ao iniciar capturador: {e}")
+
+    def _launch_workflow_recorder(self, app_info):
+        """Launch workflow recorder utility"""
+        script_path = app_info["cwd"] / "record_workflow.py"
+
+        if not script_path.exists():
+            self.show_error(
+                "Arquivo não encontrado",
+                f"Gravador de workflow não encontrado em:\n{script_path}",
+            )
+            return
+
+        try:
+            # Launch in new terminal window
+            subprocess.Popen(
+                ["start", "cmd", "/k", sys.executable, str(script_path)],
+                shell=True,
+                cwd=str(app_info["cwd"]),
+            )
+
+            # Show info
+            self.show_error(
+                "Gravador Iniciado",
+                "O gravador de workflow foi aberto em uma nova janela.\n\n"
+                "Grave o fluxo completo da sua automação:\n"
+                "   - Execute ações manualmente\n"
+                "   - Pressione teclas F1-F8 para marcar etapas\n"
+                "   - Use Ctrl+E e Ctrl+P para campos configuráveis\n"
+                "   - Pressione F9 para finalizar",
+            )
+        except Exception as e:
+            self.show_error("Erro", f"Falha ao iniciar gravador: {e}")
+
+    def _create_input_field(self, field_id, field_info, value, fields_dict):
+        """Create appropriate input field control based on type"""
+        field_type = field_info.get("type", "text")
+
+        if field_type == "select":
+            options = [
+                (
+                    ft.dropdown.Option(k, v)
+                    if isinstance(v, str)
+                    else ft.dropdown.Option(str(k))
+                )
+                for k, v in field_info.get("options", {}).items()
+            ]
+
+            return ft.Dropdown(
+                label=field_info["label"],
+                value=str(value),
+                width=450,
+                options=options,
+            )
+
+        elif field_type == "multiselect":
+            return self._create_multiselect_field(
+                field_id, field_info, value, fields_dict
+            )
+
+        else:
+            # Create TextField for text/password types
+            is_password = field_type == "password"
+            return ft.TextField(
+                label=field_info["label"],
+                value=str(value),
+                width=450,
+                password=is_password,
+                can_reveal_password=is_password,
+            )
+
+    def _create_multiselect_field(self, field_id, field_info, value, fields_dict):
+        """Create manual checkbox group for multiselect"""
+        # Value must be a list
+        current_val = value if isinstance(value, list) else [str(value)]
+
+        # Create a hidden field to store the actual list value for saving
+        # We will update this value whenever a checkbox changes
+        value_store = ft.Text(value=str(current_val), visible=False)
+        fields_dict[field_id] = value_store  # Save this control to read value later
+
+        checkboxes = []
+        for k, v in field_info.get("options", {}).items():
+
+            def on_change(e, key=k):
+                # Update the stored list
+                current_list = eval(value_store.value)
+                if e.control.value:
+                    if key not in current_list:
+                        current_list.append(key)
+                else:
+                    if key in current_list:
+                        current_list.remove(key)
+                value_store.value = str(current_list)
+
+            cb = ft.Checkbox(label=v, value=(k in current_val), on_change=on_change)
+            checkboxes.append(cb)
+
+        return ft.Column(
+            controls=[
+                ft.Text(field_info["label"], size=12, color=ft.colors.GREY_400),
+                *checkboxes,
+                value_store,
+            ],
+            spacing=5,
+        )

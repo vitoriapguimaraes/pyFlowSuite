@@ -1,38 +1,25 @@
 # PyFlow Suite
 
-> Uma suíte consolidada de ferramentas Python focada em **Otimização** e **Produtividade**. Este repositório unifica projetos de automação, backups e comunicação em uma interface fluida e moderna.
+> Uma suíte consolidada de ferramentas Python focada em **Otimização** e **Produtividade**. Este repositório unifica projetos de automação e backups em uma interface fluida e moderna com **sistema de configuração inteligente**.
 
-[![Acesse o Repositório](https://img.shields.io/badge/Ver%20no%20GitHub-gray?style=for-the-badge)](https://github.com/vitoriapguimaraes/pyFlowSuite)
+![Demonstração do sistema](https://github.com/vitoriapguimaraes/pyFlowSuite/blob/main/src/demos/navigation.gif)
 
 ## Funcionalidades Principais
 
-O **PyFlow Launcher** organiza as ferramentas em três pilares essenciais:
-
-### Otimização & Automação
-
-_Ferramentas para economizar tempo e eliminar tarefas repetitivas._
-
-- **Product Registration**: Automação de cadastro em formulários web (csv -> web).
-- **Sales Report**: Geração e envio automático de relatórios de desempenho por e-mail.
-
-### Produtividade & Utilitários
-
-_Ferramentas para segurança e gestão de arquivos._
-
-- **Backup Tool**: Sistema robusto de backup automático com organização por data/hora.
-
-### Comunicação
-
-_Ferramentas para conexão em tempo real._
-
-- **Real-Time Chat**: Chat moderno com suporte a Web (Flask) e Desktop (Flet).
+- **Launcher Modular**: Interface Flet elegante com navegação intuitiva em colunas (Otimização, Produtividade).
+- **Product Registration**: Automação completa de cadastro em formulários web a partir de arquivos CSV, incluindo capturador de coordenadas e gravador de workflow.
+- **Sales Report**: Geração e envio automático de relatórios de vendas por email (Outlook).
+- **Backup Tool**: Sistema robusto de backup automático de diretórios com timestamp e preservação de estrutura.
+- **Sistema de Configuração**: Configure seus aplicativos diretamente no launcher com interface de formulário e validação.
 
 ## Tecnologias Utilizadas
 
-- **Core**: Python 3.10+
-- **Launcher UI**: Flet (Framework moderno baseado em Flutter)
-- **Automação**: PyAutoGUI, Pandas, OpenPyXL
-- **Web/Rede**: Flask, SocketIO
+- **Python 3.11+**
+- **Flet** (UI Framework)
+- **PyAutoGUI** (Automação de GUI)
+- **Pandas** (Análise de Dados)
+- **OpenPyXL** (Manipulação de Excel)
+- **JSON** (Gerenciamento de Configuração)
 
 ## Como Executar
 
@@ -40,40 +27,64 @@ _Ferramentas para conexão em tempo real._
 
    ```bash
    git clone https://github.com/vitoriapguimaraes/pyFlowSuite.git
+   cd pyFlowSuite
    ```
 
-2. Instale as dependências:
+2. Crie um ambiente virtual (Recomendado):
+
+   ```bash
+   conda create -n pyflow python=3.11
+   conda activate pyflow
+   ```
+
+3. Instale as dependências:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Execute o Launcher Central:
+4. Execute o Launcher:
 
    ```bash
    python src/launcher/main.py
    ```
 
+## Como Usar
+
+1. **Abra o Launcher**: Execute o comando acima para abrir a interface principal.
+2. **Escolha a Ferramenta**: Navegue pelas categorias "Otimização" e "Produtividade".
+3. **Configure**: Clique no botão "Configurar" (ícone de engrenagem) se a aplicação exigir (ex: caminhos de arquivos, credenciais).
+   - _Nota:_ Os campos vêm com exemplos genéricos; substitua pelos seus dados reais.
+4. **Execute**: Clique em "Iniciar Aplicação" para rodar a automação ou ferramenta.
+
+### Ferramentas de Auxílio (Product Registration)
+
+- **Capturador de Coordenadas**: Use para mapear posições X,Y dos campos do seu formulário web.
+- **Gravador de Workflow**: Grave sequências de ações personalizadas para automação.
+
 ## Estrutura de Diretórios
 
 ```bash
-/pyFlowSuite
+pyFlowSuite/
 ├── src/
-│   ├── launcher/           # PyFlow Launcher (Flet)
-│   ├── product_registration/
-│   ├── backup_tool/
-│   ├── realtime_chat/
-│   └── sales_report/
-├── legacy_code/            # Histórico de aprendizado
+│   ├── launcher/              # Interface principal e gerenciamento
+│   │   ├── main.py
+│   │   ├── apps_data.py
+│   │   └── ...
+│   ├── apps/                  # Aplicações individuais
+│   │   ├── product_registration/
+│   │   ├── sales_report/
+│   │   └── backup_tool/
+│   └── data/config/           # Arquivos JSON de configuração do usuário
 ├── requirements.txt
 └── README.md
 ```
 
 ## Status
 
-🛠️ Em manutenção
+✅ Concluído
 
-> Veja as [issues abertas](https://github.com/vitoriapguimaraes/PyFlow-Suite/issues) para sugestões.
+> Veja as [issues abertas](https://github.com/vitoriapguimaraes/pyFlowSuite/issues) para sugestões de melhorias e próximos passos.
 
 ## Mais Sobre Mim
 

@@ -18,10 +18,14 @@ def get_apps(base_dir: Path) -> dict:
                 "color": ft.colors.BLUE_400,
                 "description": "Automatiza o cadastro de produtos em formulários web a partir de arquivos CSV. Ideal para registrar grandes volumes de produtos rapidamente.",
                 "features": [
-                    "📄 Importa dados de CSV",
-                    "🌐 Preenche formulários web automaticamente",
-                    "⚡ Processa centenas de produtos",
+                    "Importa dados de CSV",
+                    "Preenche formulários web automaticamente",
+                    "Processa centenas de produtos",
                 ],
+                "image_path": base_dir
+                / "demos"
+                / "legacy"
+                / "product_registration.gif",
                 "path": base_dir / "apps" / "product_registration" / "app.py",
                 "cwd": base_dir / "apps" / "product_registration",
                 "requires_config": True,
@@ -29,17 +33,17 @@ def get_apps(base_dir: Path) -> dict:
                     "csv_path": {
                         "label": "Caminho do CSV",
                         "type": "file",
-                        "default": str(base_dir / "data" / "products.csv"),
+                        "default": r"C:\Seu\Caminho\Para\arquivo.csv",
                     },
                     "site_url": {
                         "label": "URL do Site",
                         "type": "text",
-                        "default": "https://dlp.hashtagtreinamentos.com/python/intensivao/login",
+                        "default": "https://seu-site.com/login",
                     },
                     "email": {
                         "label": "Email de Login",
                         "type": "text",
-                        "default": "",
+                        "default": "seu_email@exemplo.com",
                     },
                     "password": {
                         "label": "Senha de Login",
@@ -55,10 +59,14 @@ def get_apps(base_dir: Path) -> dict:
                 "color": ft.colors.RED_400,
                 "description": "Gera relatórios de vendas detalhados e envia por email via Outlook. Analisa faturamento, quantidade e ticket médio por loja.",
                 "features": [
-                    "📊 Análise automática de vendas",
-                    "📧 Envio por email (Outlook)",
-                    "💰 Cálculo de métricas-chave",
+                    "Análise automática de vendas",
+                    "Envio por email (Outlook)",
+                    "Cálculo de métricas-chave",
                 ],
+                "image_path": base_dir
+                / "demos"
+                / "legacy"
+                / "sales_report_example.png",
                 "path": base_dir / "apps" / "sales_report" / "app.py",
                 "cwd": base_dir / "apps" / "sales_report",
                 "requires_config": True,
@@ -66,12 +74,12 @@ def get_apps(base_dir: Path) -> dict:
                     "excel_path": {
                         "label": "Caminho do Excel",
                         "type": "file",
-                        "default": str(base_dir / "data" / "sales_data.xlsx"),
+                        "default": r"C:\Seu\Caminho\Para\vendas.xlsx",
                     },
                     "recipient_email": {
                         "label": "Email Destinatário",
                         "type": "text",
-                        "default": "",
+                        "default": "destinatario@exemplo.com",
                     },
                 },
             },
@@ -84,45 +92,37 @@ def get_apps(base_dir: Path) -> dict:
                 "color": ft.colors.GREEN_400,
                 "description": "Cria backups automáticos de pastas selecionadas com timestamp. Preserva estrutura de arquivos e subpastas.",
                 "features": [
-                    "💾 Backup completo de diretórios",
-                    "🕐 Timestamp automático",
-                    "📁 Preserva estrutura de pastas",
+                    "Backup completo de diretórios",
+                    "Timestamp automático",
+                    "Preserva estrutura de pastas",
                 ],
+                "image_path": base_dir / "demos" / "legacy" / "backup_tool.gif",
                 "path": base_dir / "apps" / "backup_tool" / "app.py",
                 "cwd": base_dir / "apps" / "backup_tool",
-                "requires_config": False,
-            },
-        ],
-        "communication": [
-            {
-                "name": "Real-Time Chat (Web)",
-                "id": "realtime_chat_web",
-                "icon": "chat",
-                "color": ft.colors.ORANGE_400,
-                "description": "Chat em tempo real baseado em Flask e SocketIO. Acessa via navegador web em rede local.",
-                "features": [
-                    "💬 Mensagens em tempo real",
-                    "🌐 Acesso via navegador",
-                    "👥 Múltiplos usuários",
-                ],
-                "path": base_dir / "apps" / "realtime_chat" / "app_web.py",
-                "cwd": base_dir / "apps" / "realtime_chat",
-                "requires_config": False,
-            },
-            {
-                "name": "Real-Time Chat (Desktop)",
-                "id": "realtime_chat_desktop",
-                "icon": "message",
-                "color": ft.colors.INDIGO_400,
-                "description": "Aplicação de chat desktop com interface Flet. Comunicação instantânea entre usuários na mesma rede.",
-                "features": [
-                    "💬 Interface desktop nativa",
-                    "⚡ Mensagens instantâneas",
-                    "🎨 Design moderno e responsivo",
-                ],
-                "path": base_dir / "apps" / "realtime_chat" / "app_desktop.py",
-                "cwd": base_dir / "apps" / "realtime_chat",
-                "requires_config": False,
+                "requires_config": True,
+                "config_fields": {
+                    "source_dir": {
+                        "label": "Pasta de Origem",
+                        "type": "text",
+                        "default": r"C:\Seu\Caminho\Origem",
+                    },
+                    "dest_dir": {
+                        "label": "Pasta de Destino",
+                        "type": "text",
+                        "default": r"C:\Seu\Caminho\Destino",
+                    },
+                    "include_extensions": {
+                        "label": "Tipo de Arquivos para Backup",
+                        "type": "multiselect",
+                        "default": ["*"],  # List for multiselect
+                        "options": {
+                            "*": "Todos os arquivos (*)",
+                            ".pdf, .docx, .txt, .xlsx, .pptx": "Documentos (.pdf, .docx, .xlsx...)",
+                            ".jpg, .jpeg, .png, .gif, .mp4": "Mídia (.jpg, .png, .mp4...)",
+                            ".py, .js, .html, .css, .json, .md": "Código (.py, .js, .html...)",
+                        },
+                    },
+                },
             },
         ],
     }
