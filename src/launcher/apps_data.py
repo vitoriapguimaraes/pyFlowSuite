@@ -33,17 +33,17 @@ def get_apps(base_dir: Path) -> dict:
                     "csv_path": {
                         "label": "Caminho do CSV",
                         "type": "file",
-                        "default": str(base_dir / "data" / "products.csv"),
+                        "default": r"C:\Seu\Caminho\Para\arquivo.csv",
                     },
                     "site_url": {
                         "label": "URL do Site",
                         "type": "text",
-                        "default": "https://dlp.hashtagtreinamentos.com/python/intensivao/login",
+                        "default": "https://seu-site.com/login",
                     },
                     "email": {
                         "label": "Email de Login",
                         "type": "text",
-                        "default": "",
+                        "default": "seu_email@exemplo.com",
                     },
                     "password": {
                         "label": "Senha de Login",
@@ -74,12 +74,12 @@ def get_apps(base_dir: Path) -> dict:
                     "excel_path": {
                         "label": "Caminho do Excel",
                         "type": "file",
-                        "default": str(base_dir / "data" / "sales_data.xlsx"),
+                        "default": r"C:\Seu\Caminho\Para\vendas.xlsx",
                     },
                     "recipient_email": {
                         "label": "Email Destinatário",
                         "type": "text",
-                        "default": "",
+                        "default": "destinatario@exemplo.com",
                     },
                 },
             },
@@ -99,7 +99,30 @@ def get_apps(base_dir: Path) -> dict:
                 "image_path": base_dir / "demos" / "legacy" / "backup_tool.gif",
                 "path": base_dir / "apps" / "backup_tool" / "app.py",
                 "cwd": base_dir / "apps" / "backup_tool",
-                "requires_config": False,
+                "requires_config": True,
+                "config_fields": {
+                    "source_dir": {
+                        "label": "Pasta de Origem",
+                        "type": "text",
+                        "default": r"C:\Seu\Caminho\Origem",
+                    },
+                    "dest_dir": {
+                        "label": "Pasta de Destino",
+                        "type": "text",
+                        "default": r"C:\Seu\Caminho\Destino",
+                    },
+                    "include_extensions": {
+                        "label": "Tipo de Arquivos para Backup",
+                        "type": "multiselect",
+                        "default": ["*"],  # List for multiselect
+                        "options": {
+                            "*": "Todos os arquivos (*)",
+                            ".pdf, .docx, .txt, .xlsx, .pptx": "Documentos (.pdf, .docx, .xlsx...)",
+                            ".jpg, .jpeg, .png, .gif, .mp4": "Mídia (.jpg, .png, .mp4...)",
+                            ".py, .js, .html, .css, .json, .md": "Código (.py, .js, .html...)",
+                        },
+                    },
+                },
             },
         ],
         "communication": [
