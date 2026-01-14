@@ -18,9 +18,9 @@ def get_apps(base_dir: Path) -> dict:
                 "color": ft.colors.BLUE_400,
                 "description": "Automatiza o cadastro de produtos em formulários web a partir de arquivos CSV. Ideal para registrar grandes volumes de produtos rapidamente.",
                 "features": [
-                    "📄 Importa dados de CSV",
-                    "🌐 Preenche formulários web automaticamente",
-                    "⚡ Processa centenas de produtos",
+                    "Importa dados de CSV",
+                    "Preenche formulários web automaticamente",
+                    "Processa centenas de produtos",
                 ],
                 "image_path": base_dir
                 / "demos"
@@ -59,9 +59,9 @@ def get_apps(base_dir: Path) -> dict:
                 "color": ft.colors.RED_400,
                 "description": "Gera relatórios de vendas detalhados e envia por email via Outlook. Analisa faturamento, quantidade e ticket médio por loja.",
                 "features": [
-                    "📊 Análise automática de vendas",
-                    "📧 Envio por email (Outlook)",
-                    "💰 Cálculo de métricas-chave",
+                    "Análise automática de vendas",
+                    "Envio por email (Outlook)",
+                    "Cálculo de métricas-chave",
                 ],
                 "image_path": base_dir
                 / "demos"
@@ -92,9 +92,9 @@ def get_apps(base_dir: Path) -> dict:
                 "color": ft.colors.GREEN_400,
                 "description": "Cria backups automáticos de pastas selecionadas com timestamp. Preserva estrutura de arquivos e subpastas.",
                 "features": [
-                    "💾 Backup completo de diretórios",
-                    "🕐 Timestamp automático",
-                    "📁 Preserva estrutura de pastas",
+                    "Backup completo de diretórios",
+                    "Timestamp automático",
+                    "Preserva estrutura de pastas",
                 ],
                 "image_path": base_dir / "demos" / "legacy" / "backup_tool.gif",
                 "path": base_dir / "apps" / "backup_tool" / "app.py",
@@ -133,9 +133,9 @@ def get_apps(base_dir: Path) -> dict:
                 "color": ft.colors.ORANGE_400,
                 "description": "Chat em tempo real baseado em Flask e SocketIO. Acessa via navegador web em rede local.",
                 "features": [
-                    "💬 Mensagens em tempo real",
-                    "🌐 Acesso via navegador",
-                    "👥 Múltiplos usuários",
+                    "Mensagens em tempo real",
+                    "Acesso via navegador",
+                    "Múltiplos usuários",
                 ],
                 "image_path": base_dir
                 / "demos"
@@ -152,9 +152,9 @@ def get_apps(base_dir: Path) -> dict:
                 "color": ft.colors.INDIGO_400,
                 "description": "Aplicação de chat desktop com interface Flet. Comunicação instantânea entre usuários na mesma rede.",
                 "features": [
-                    "💬 Interface desktop nativa",
-                    "⚡ Mensagens instantâneas",
-                    "🎨 Design moderno e responsivo",
+                    "Interface desktop nativa",
+                    "Mensagens instantâneas",
+                    "Design moderno e responsivo",
                 ],
                 "image_path": base_dir / "demos" / "legacy" / "realtime_chat.gif",
                 "path": base_dir / "apps" / "realtime_chat" / "app_desktop.py",

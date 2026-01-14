@@ -74,7 +74,7 @@ class DialogManager:
         content_items = [
             ft.Text(app_info["description"], size=14, color=ft.colors.GREY_300),
             ft.Divider(height=20, color=ft.colors.TRANSPARENT),
-            ft.Text("✨ Funcionalidades:", size=16, weight=ft.FontWeight.BOLD),
+            ft.Text("Funcionalidades:", size=16, weight=ft.FontWeight.BOLD),
             *[
                 ft.Text(f"  {feature}", size=13, color=ft.colors.GREY_400)
                 for feature in app_info["features"]
@@ -178,7 +178,7 @@ class DialogManager:
             # Coordinate picker
             field_controls.append(
                 ft.OutlinedButton(
-                    "🎯 Capturar Coordenadas do Formulário",
+                    "Capturar Coordenadas do Formulário",
                     icon="location_on",
                     on_click=lambda e: self._launch_coordinate_picker(app_info),
                     width=450,
@@ -198,7 +198,7 @@ class DialogManager:
             # Workflow recorder
             field_controls.append(
                 ft.OutlinedButton(
-                    "🎬 Gravar Workflow Personalizado",
+                    "Gravar Workflow Personalizado",
                     icon="video_camera_back",
                     on_click=lambda e: self._launch_workflow_recorder(app_info),
                     width=450,
@@ -333,7 +333,7 @@ class DialogManager:
             self.show_error(
                 "Gravador Iniciado",
                 "O gravador de workflow foi aberto em uma nova janela.\n\n"
-                "🎬 Grave o fluxo completo da sua automação:\n"
+                "Grave o fluxo completo da sua automação:\n"
                 "   - Execute ações manualmente\n"
                 "   - Pressione teclas F1-F8 para marcar etapas\n"
                 "   - Use Ctrl+E e Ctrl+P para campos configuráveis\n"

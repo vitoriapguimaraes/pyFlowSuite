@@ -51,7 +51,7 @@ def create_app_card(app, on_click_callback):
     )
 
 
-def create_category_column(title, emoji, color, apps_list, on_click_callback):
+def create_category_column(title, color, apps_list, on_click_callback):
     """Create a column for a specific app category"""
 
     # Create cards for this category
@@ -62,9 +62,7 @@ def create_category_column(title, emoji, color, apps_list, on_click_callback):
     return ft.Column(
         controls=[
             ft.Container(
-                content=ft.Text(
-                    f"{emoji} {title}", size=20, weight=ft.FontWeight.BOLD, color=color
-                ),
+                content=ft.Text(title, size=20, weight=ft.FontWeight.BOLD, color=color),
                 margin=ft.margin.only(bottom=10),
                 alignment=ft.alignment.center,
             ),
@@ -111,7 +109,6 @@ def build_ui(page, apps, dialog_manager):
                 controls=[
                     create_category_column(
                         "Otimização",
-                        "🔥",
                         ft.colors.CYAN_300,
                         apps["optimization"],
                         dialog_manager.show_app_dialog,
@@ -124,7 +121,6 @@ def build_ui(page, apps, dialog_manager):
                 controls=[
                     create_category_column(
                         "Produtividade",
-                        "💼",
                         ft.colors.GREEN_300,
                         apps["productivity"],
                         dialog_manager.show_app_dialog,
@@ -137,7 +133,6 @@ def build_ui(page, apps, dialog_manager):
                 controls=[
                     create_category_column(
                         "Comunicação",
-                        "💬",
                         ft.colors.ORANGE_300,
                         apps["communication"],
                         dialog_manager.show_app_dialog,
