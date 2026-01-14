@@ -22,6 +22,10 @@ def get_apps(base_dir: Path) -> dict:
                     "🌐 Preenche formulários web automaticamente",
                     "⚡ Processa centenas de produtos",
                 ],
+                "image_path": base_dir
+                / "demos"
+                / "legacy"
+                / "product_registration.gif",
                 "path": base_dir / "apps" / "product_registration" / "app.py",
                 "cwd": base_dir / "apps" / "product_registration",
                 "requires_config": True,
@@ -59,6 +63,10 @@ def get_apps(base_dir: Path) -> dict:
                     "📧 Envio por email (Outlook)",
                     "💰 Cálculo de métricas-chave",
                 ],
+                "image_path": base_dir
+                / "demos"
+                / "legacy"
+                / "sales_report_example.png",
                 "path": base_dir / "apps" / "sales_report" / "app.py",
                 "cwd": base_dir / "apps" / "sales_report",
                 "requires_config": True,
@@ -88,6 +96,7 @@ def get_apps(base_dir: Path) -> dict:
                     "🕐 Timestamp automático",
                     "📁 Preserva estrutura de pastas",
                 ],
+                "image_path": base_dir / "demos" / "legacy" / "backup_tool.gif",
                 "path": base_dir / "apps" / "backup_tool" / "app.py",
                 "cwd": base_dir / "apps" / "backup_tool",
                 "requires_config": False,
@@ -105,6 +114,10 @@ def get_apps(base_dir: Path) -> dict:
                     "🌐 Acesso via navegador",
                     "👥 Múltiplos usuários",
                 ],
+                "image_path": base_dir
+                / "demos"
+                / "legacy"
+                / "realtime_chat_webflask.gif",
                 "path": base_dir / "apps" / "realtime_chat" / "app_web.py",
                 "cwd": base_dir / "apps" / "realtime_chat",
                 "requires_config": False,
@@ -120,6 +133,7 @@ def get_apps(base_dir: Path) -> dict:
                     "⚡ Mensagens instantâneas",
                     "🎨 Design moderno e responsivo",
                 ],
+                "image_path": base_dir / "demos" / "legacy" / "realtime_chat.gif",
                 "path": base_dir / "apps" / "realtime_chat" / "app_desktop.py",
                 "cwd": base_dir / "apps" / "realtime_chat",
                 "requires_config": False,

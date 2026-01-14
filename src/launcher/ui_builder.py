@@ -7,8 +7,10 @@ import flet as ft
 
 
 def create_app_card(app, on_click_callback):
-    """Create app card"""
-    card_content = ft.Row(
+    """Create app card with preview image"""
+
+    # Header with Icon and Title
+    header_content = ft.Row(
         [
             ft.Icon(app["icon"], color=app["color"], size=24),
             ft.Text(app["name"], size=16, weight=ft.FontWeight.W_500, expand=True),
@@ -16,15 +18,61 @@ def create_app_card(app, on_click_callback):
         spacing=12,
     )
 
+    # Card Content (Image + Header)
+    card_content = ft.Column(
+        [
+            # Preview Image
+            ft.Image(
+                src=str(app.get("image_path", "")),
+                height=150,
+                width=1000,  # Fill width
+                fit=ft.ImageFit.COVER,
+                border_radius=ft.border_radius.vertical(top=12),
+                opacity=0.9,
+            ),
+            # Title Section
+            ft.Container(
+                content=header_content,
+                padding=20,
+            ),
+        ],
+        spacing=0,
+    )
+
     return ft.Container(
         content=card_content,
         bgcolor=ft.colors.with_opacity(0.05, ft.colors.WHITE),
         border=ft.border.all(1, ft.colors.with_opacity(0.1, ft.colors.WHITE)),
         border_radius=12,
-        padding=20,
+        # Padding removed to let image fill top
+        padding=0,
         ink=True,
         on_click=lambda e: on_click_callback(app),
-        width=650,
+    )
+
+
+def create_category_column(title, emoji, color, apps_list, on_click_callback):
+    """Create a column for a specific app category"""
+
+    # Create cards for this category
+    app_cards = []
+    for app in apps_list:
+        app_cards.append(create_app_card(app, on_click_callback))
+
+    return ft.Column(
+        controls=[
+            ft.Container(
+                content=ft.Text(
+                    f"{emoji} {title}", size=20, weight=ft.FontWeight.BOLD, color=color
+                ),
+                margin=ft.margin.only(bottom=10),
+                alignment=ft.alignment.center,
+            ),
+            ft.Column(
+                controls=app_cards,
+                spacing=20,
+            ),
+        ],
     )
 
 
@@ -47,16 +95,6 @@ def create_header():
     )
 
 
-def create_section_title(title, emoji, color):
-    """Create section title"""
-    return ft.Text(
-        f"{emoji} {title}",
-        size=22,
-        weight=ft.FontWeight.BOLD,
-        color=color,
-    )
-
-
 def build_ui(page, apps, dialog_manager):
     """Build the complete UI"""
     # Clear page
@@ -65,27 +103,54 @@ def build_ui(page, apps, dialog_manager):
     # Header
     page.add(create_header())
 
-    # Optimization Section
-    page.add(create_section_title("Otimização", "🔥", ft.colors.CYAN_300))
+    # Main Content Row with 3 Columns
+    main_content = ft.ResponsiveRow(
+        controls=[
+            # Optimization Column
+            ft.Column(
+                controls=[
+                    create_category_column(
+                        "Otimização",
+                        "🔥",
+                        ft.colors.CYAN_300,
+                        apps["optimization"],
+                        dialog_manager.show_app_dialog,
+                    )
+                ],
+                col={"md": 12, "lg": 4},  # Full width on small/med, 1/3 on large
+            ),
+            # Productivity Column
+            ft.Column(
+                controls=[
+                    create_category_column(
+                        "Produtividade",
+                        "💼",
+                        ft.colors.GREEN_300,
+                        apps["productivity"],
+                        dialog_manager.show_app_dialog,
+                    )
+                ],
+                col={"md": 12, "lg": 4},
+            ),
+            # Communication Column
+            ft.Column(
+                controls=[
+                    create_category_column(
+                        "Comunicação",
+                        "💬",
+                        ft.colors.ORANGE_300,
+                        apps["communication"],
+                        dialog_manager.show_app_dialog,
+                    )
+                ],
+                col={"md": 12, "lg": 4},
+            ),
+        ],
+        spacing=30,
+        run_spacing=30,
+    )
 
-    for app in apps["optimization"]:
-        page.add(create_app_card(app, dialog_manager.show_app_dialog))
-
-    page.add(ft.Divider(height=30, color=ft.colors.TRANSPARENT))
-
-    # Productivity Section
-    page.add(create_section_title("Produtividade", "💼", ft.colors.GREEN_300))
-
-    for app in apps["productivity"]:
-        page.add(create_app_card(app, dialog_manager.show_app_dialog))
-
-    page.add(ft.Divider(height=30, color=ft.colors.TRANSPARENT))
-
-    # Communication Section
-    page.add(create_section_title("Comunicação", "💬", ft.colors.ORANGE_300))
-
-    for app in apps["communication"]:
-        page.add(create_app_card(app, dialog_manager.show_app_dialog))
+    page.add(main_content)
 
     page.add(ft.Divider(height=40, color=ft.colors.TRANSPARENT))
     page.add(create_footer())

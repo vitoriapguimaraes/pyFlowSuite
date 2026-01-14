@@ -17,14 +17,14 @@ def main(page: ft.Page):
     # Page configuration
     page.title = "PyFlow Suite"
     page.theme_mode = ft.ThemeMode.DARK
-    page.window.width = 1000
-    page.window.height = 800
+    page.window.width = 1100
+    page.window.height = 900
     page.window.min_width = 800
     page.window.min_height = 600
     page.padding = 40
     page.bgcolor = "#0a0a0a"
     page.scroll = ft.ScrollMode.AUTO  # Adiciona scroll automático
-    page.window.maximized = False  # True para abrir maximizado
+    page.window.maximized = True  # Começar maximizado para ver todo o conteúdo
 
     # Paths
     BASE_DIR = Path(__file__).parent.parent
