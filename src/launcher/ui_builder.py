@@ -114,7 +114,7 @@ def build_ui(page, apps, dialog_manager):
                         dialog_manager.show_app_dialog,
                     )
                 ],
-                col={"md": 12, "lg": 4},  # Full width on small/med, 1/3 on large
+                col={"md": 12, "lg": 6},  # Full width on small/med, 1/2 on large
             ),
             # Productivity Column
             ft.Column(
@@ -126,19 +126,10 @@ def build_ui(page, apps, dialog_manager):
                         dialog_manager.show_app_dialog,
                     )
                 ],
-                col={"md": 12, "lg": 4},
-            ),
-            # Communication Column
-            ft.Column(
-                controls=[
-                    create_category_column(
-                        "Comunicação",
-                        ft.colors.ORANGE_300,
-                        apps["communication"],
-                        dialog_manager.show_app_dialog,
-                    )
-                ],
-                col={"md": 12, "lg": 4},
+                col={
+                    "md": 12,
+                    "lg": 6,
+                },  # Adjusted from lg:4 to lg:6 for balanced 2-column layout
             ),
         ],
         spacing=30,

@@ -125,41 +125,4 @@ def get_apps(base_dir: Path) -> dict:
                 },
             },
         ],
-        "communication": [
-            {
-                "name": "Real-Time Chat (Web)",
-                "id": "realtime_chat_web",
-                "icon": "chat",
-                "color": ft.colors.ORANGE_400,
-                "description": "Chat em tempo real baseado em Flask e SocketIO. Acessa via navegador web em rede local.",
-                "features": [
-                    "Mensagens em tempo real",
-                    "Acesso via navegador",
-                    "Múltiplos usuários",
-                ],
-                "image_path": base_dir
-                / "demos"
-                / "legacy"
-                / "realtime_chat_webflask.gif",
-                "path": base_dir / "apps" / "realtime_chat" / "app_web.py",
-                "cwd": base_dir / "apps" / "realtime_chat",
-                "requires_config": False,
-            },
-            {
-                "name": "Real-Time Chat (Desktop)",
-                "id": "realtime_chat_desktop",
-                "icon": "message",
-                "color": ft.colors.INDIGO_400,
-                "description": "Aplicação de chat desktop com interface Flet. Comunicação instantânea entre usuários na mesma rede.",
-                "features": [
-                    "Interface desktop nativa",
-                    "Mensagens instantâneas",
-                    "Design moderno e responsivo",
-                ],
-                "image_path": base_dir / "demos" / "legacy" / "realtime_chat.gif",
-                "path": base_dir / "apps" / "realtime_chat" / "app_desktop.py",
-                "cwd": base_dir / "apps" / "realtime_chat",
-                "requires_config": False,
-            },
-        ],
     }
